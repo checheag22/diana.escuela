@@ -36,7 +36,7 @@ export function AboutSection() {
 
               <div className="relative aspect-[4/5] overflow-hidden rounded-[2rem] border border-linea shadow-warm">
                 <SmartImage
-                  src="/images/site/conocenos.jpg"
+                  src="/images/real/photo-3.jpg"
                   alt="Perritos rescatados conviviendo en Casa Hogar Goyito"
                   fill
                   fallbackLabel="Casa Hogar Goyito"

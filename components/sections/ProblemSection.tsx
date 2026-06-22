@@ -52,7 +52,7 @@ export function ProblemSection() {
           <Reveal delay={0.12} y={32}>
             <div className="relative aspect-[4/3] overflow-hidden rounded-[2rem] border border-crema/10 shadow-lift">
               <SmartImage
-                src="/images/site/problema.jpg"
+                src="/images/real/photo-2.jpg"
                 alt="Perrito en situación de calle en León, Guanajuato"
                 fill
                 fallbackLabel="Casa Hogar Goyito"
