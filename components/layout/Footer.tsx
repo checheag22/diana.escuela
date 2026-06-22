@@ -7,10 +7,10 @@ import { navLinks, site } from "@/lib/site-data";
 
 export function Footer() {
   return (
-    <footer className="relative mt-24 overflow-hidden bg-cafe-900 text-crema">
+    <footer className="relative mt-20 overflow-hidden bg-cafe-900 text-crema">
       {/* CTA superior */}
-      <div className="container-x relative z-10 -mb-px">
-        <div className="relative -translate-y-1/2 overflow-hidden rounded-[2rem] bg-gradient-to-br from-naranja to-naranja-600 px-7 py-10 shadow-lift sm:px-12 sm:py-12">
+      <div className="container-x relative z-10 pt-14">
+        <div className="relative overflow-hidden rounded-[2rem] bg-gradient-to-br from-naranja to-naranja-600 px-7 py-10 shadow-lift sm:px-12 sm:py-11">
           <div className="relative z-10 flex flex-col items-start justify-between gap-6 md:flex-row md:items-center">
             <div className="max-w-xl">
               <h3 className="text-balance font-display text-2xl text-crema sm:text-3xl">
@@ -33,7 +33,7 @@ export function Footer() {
         </div>
       </div>
 
-      <div className="container-x grid gap-12 pb-12 pt-8 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+      <div className="container-x grid gap-12 pb-12 pt-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
         <div>
           <Logo tone="light" />
           <p className="mt-5 max-w-xs text-sm leading-relaxed text-crema/70">
