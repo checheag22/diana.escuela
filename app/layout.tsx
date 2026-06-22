@@ -18,7 +18,7 @@ const fraunces = Fraunces({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://casa-hogar-goyito.vercel.app"),
+  metadataBase: new URL("https://diana-escuela.vercel.app"),
   title: {
     default: "Casa Hogar Goyito A.C. — De la calle a casa",
     template: "%s · Casa Hogar Goyito",
