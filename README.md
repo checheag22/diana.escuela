@@ -1,36 +1,75 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🐾 Casa Hogar Goyito — «De la calle a casa»
 
-## Getting Started
+Sitio web y campaña de comunicación visual para **Casa Hogar Goyito A.C.**, albergue canino en León, Guanajuato. Rescata, rehabilita, esteriliza y da en adopción a perros en situación de calle.
 
-First, run the development server:
+> Proyecto de comunicación visual · Universidad Iberoamericana León
+> Concepto: **«De la calle a casa»** — transformar la empatía en adopciones, donativos y voluntariado.
+
+---
+
+## 🧱 Stack
+
+- **Next.js 16** (App Router) + **React 19** + **TypeScript**
+- **Tailwind CSS v4** (design tokens cálidos en `app/globals.css`)
+- **Framer Motion** + **GSAP** + **Lenis** (animaciones y smooth scroll)
+- **lucide-react** (íconos) · íconos de marca propios en `components/ui/SocialIcons.tsx`
+- Deploy en **Vercel**
+
+## 🚀 Scripts
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run dev     # desarrollo (http://localhost:3000)
+npm run build   # build de producción
+npm run start   # servir el build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 🗂️ Estructura
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+app/
+  layout.tsx            # fuentes (Fraunces + Inter), navbar, footer, metadata
+  page.tsx              # inicio (11 secciones en flujo narrativo)
+  adopta/page.tsx       # galería filtrable de perros
+  adopta/[slug]/        # ficha individual (SSG por perro)
+  campana/page.tsx      # piezas de campaña (cartel, carrusel IG, etc.)
+components/
+  sections/             # secciones del inicio
+  adopta/               # galería y tarjetas de perro
+  campana/              # piezas de campaña
+  ui/ · layout/ · providers/
+lib/
+  site-data.ts          # 👈 TODO el contenido (datos reales) vive aquí
+  icon-map.tsx · utils.ts
+public/images/          # fotos (licencia libre) + CREDITS.md
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ✏️ Editar contenido
 
-## Learn More
+Casi todo el texto, datos y fichas de perros están en **`lib/site-data.ts`**. Cambia ahí los números, contactos, perros y mensajes sin tocar los componentes.
 
-To learn more about Next.js, take a look at the following resources:
+## 🖼️ Reemplazar fotos por las reales del albergue
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Las fotos actuales son de **licencia libre** (Unsplash/Pexels, ver `public/images/CREDITS.md`) y sirven como placeholders. Para usar las reales:
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+1. Sustituye los archivos en `public/images/` **conservando el mismo nombre** (ej. `dogs/canela.jpg`).
+2. O genera nuevas con IA usando **`IMAGE-PROMPTS.md`**.
+3. Para el video de fondo opcional del hero, ver **`VIDEO-PROMPTS.md`**.
 
-## Deploy on Vercel
+El componente `SmartImage` ya muestra un placeholder de marca elegante si alguna imagen llegara a faltar.
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+---
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## ⚠️ Datos por confirmar con el albergue
+
+El contenido usa datos **públicos confirmados** (WhatsApp 477 853 3412, PayPal, redes, gasto mensual ~$41,000, impacto reportado). Conviene confirmar con Casa Hogar Goyito:
+
+- **Dirección exacta** (no está publicada; hoy se coordina por WhatsApp).
+- **CLABE / cuenta bancaria** para transferencias (no es pública).
+- **Estatus de donataria autorizada** (deducibilidad) y RFC para facturas.
+- **Número actual de perros** (varía: ~250–300+).
+- **Fotos reales** y permiso de uso.
+- Las **fichas de perros** (`lib/site-data.ts`) son ejemplos demostrativos.
+
+## 🙏 Créditos de contenido
+
+Datos reales recopilados de fuentes públicas: sitio oficial casahogargoyito.org, prensa de León (Milenio, AM, Periódico Correo, El Sol de León, Telediario) y redes sociales del albergue. Fotos: ver `public/images/CREDITS.md`.
