@@ -27,15 +27,22 @@ const marqueeItems = [
   "Rescatar",
 ];
 
+const pawTrail = [
+  { x: "8%", y: "30%", r: -18, d: 0.2 },
+  { x: "14%", y: "44%", r: 12, d: 0.35 },
+  { x: "10%", y: "60%", r: -8, d: 0.5 },
+  { x: "18%", y: "72%", r: 18, d: 0.65 },
+  { x: "12%", y: "86%", r: -14, d: 0.8 },
+];
+
 export function HeroSection() {
   const ref = useRef<HTMLElement>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start start", "end start"],
   });
-  const imgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
-  const textY = useTransform(scrollYProgress, [0, 1], [0, 60]);
-  const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+  const textY = useTransform(scrollYProgress, [0, 1], [0, 70]);
+  const fade = useTransform(scrollYProgress, [0, 0.85], [1, 0]);
 
   const [reducedMotion, setReducedMotion] = useState(false);
   useEffect(() => {
@@ -49,27 +56,46 @@ export function HeroSection() {
   return (
     <section
       ref={ref}
-      className="relative flex min-h-[100svh] items-center overflow-hidden bg-mesh-warm pb-16 pt-28 sm:pt-32"
+      className="relative flex min-h-[100svh] items-center overflow-hidden"
     >
-      {/* Blobs de fondo */}
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-24 top-10 size-[28rem] rounded-full bg-durazno/30 blur-3xl animate-float-slow" />
-        <div className="absolute -right-20 top-1/3 size-[24rem] rounded-full bg-salvia-100/70 blur-3xl animate-float" />
-        <div className="absolute bottom-0 left-1/3 size-[20rem] rounded-full bg-naranja/15 blur-3xl animate-pulse-soft" />
+      {/* Video de fondo a sangre completa */}
+      <div className="absolute inset-0">
+        {reducedMotion ? (
+          <SmartImage
+            src="/images/site/cta.jpg"
+            alt="Perrito rescatado en la calle de León"
+            fill
+            priority
+            fallbackLabel="De la calle a casa"
+            className="object-cover object-[center_45%]"
+            sizes="100vw"
+          />
+        ) : (
+          <video
+            className="size-full scale-[1.08] object-cover object-[center_45%]"
+            autoPlay
+            muted
+            loop
+            playsInline
+            poster="/images/site/cta.jpg"
+            aria-hidden
+          >
+            <source src="/video/hero-loop.mp4" type="video/mp4" />
+          </video>
+        )}
+
+        {/* Scrims para legibilidad del texto */}
+        <div className="absolute inset-0 bg-gradient-to-r from-cafe-900/92 via-cafe-900/55 to-cafe-900/15" />
+        <div className="absolute inset-0 bg-gradient-to-t from-cafe-900/90 via-transparent to-cafe-900/45" />
+        <div className="absolute inset-0 bg-naranja/10 mix-blend-soft-light" />
       </div>
 
-      {/* Rastro de huellas decorativo */}
+      {/* Rastro de huellas */}
       <div className="pointer-events-none absolute inset-0 hidden lg:block">
-        {[
-          { x: "6%", y: "78%", r: -18, d: 0.2 },
-          { x: "13%", y: "66%", r: 12, d: 0.35 },
-          { x: "20%", y: "74%", r: -8, d: 0.5 },
-          { x: "27%", y: "60%", r: 18, d: 0.65 },
-          { x: "35%", y: "68%", r: -14, d: 0.8 },
-        ].map((p, i) => (
+        {pawTrail.map((p, i) => (
           <motion.div
             key={i}
-            className="absolute text-cafe/15"
+            className="absolute text-crema/12"
             style={{ left: p.x, top: p.y, rotate: `${p.r}deg` }}
             initial={{ opacity: 0, scale: 0.6 }}
             animate={{ opacity: 1, scale: 1 }}
@@ -80,20 +106,23 @@ export function HeroSection() {
         ))}
       </div>
 
-      <div className="container-x relative z-10 grid items-center gap-12 lg:grid-cols-[1.05fr_0.95fr]">
-        {/* Columna de texto */}
-        <motion.div style={{ y: textY }} className="max-w-xl">
+      {/* Contenido */}
+      <motion.div
+        style={{ y: textY, opacity: fade }}
+        className="container-x relative z-10 pb-28 pt-28 sm:pt-32"
+      >
+        <div className="max-w-2xl">
           <motion.span
             initial={{ opacity: 0, y: 12 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, ease: EASE }}
-            className="inline-flex items-center gap-2 rounded-full border border-cafe/15 bg-crema/60 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-cafe shadow-soft backdrop-blur"
+            className="inline-flex items-center gap-2 rounded-full border border-crema/20 bg-crema/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.18em] text-crema shadow-soft backdrop-blur"
           >
-            <Sparkles className="size-3.5 text-naranja" />
+            <Sparkles className="size-3.5 text-durazno" />
             {hero.kicker}
           </motion.span>
 
-          <h1 className="mt-6 font-display text-[3.4rem] font-semibold leading-[0.95] text-tinta sm:text-7xl lg:text-[5.2rem]">
+          <h1 className="mt-6 font-display text-[3.4rem] font-semibold leading-[0.95] text-crema sm:text-7xl lg:text-[5.4rem]">
             <motion.span
               variants={lineParent}
               initial="hidden"
@@ -106,7 +135,7 @@ export function HeroSection() {
                     variants={lineChild}
                     className={
                       i === hero.titleLines.length - 1
-                        ? "block text-gradient-warm"
+                        ? "block text-gradient-sun"
                         : "block"
                     }
                   >
@@ -121,7 +150,7 @@ export function HeroSection() {
             initial={{ opacity: 0, y: 16 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.5, duration: 0.7, ease: EASE }}
-            className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-tinta-muted"
+            className="mt-6 max-w-md text-pretty text-lg leading-relaxed text-crema/85"
           >
             {hero.lead}
           </motion.p>
@@ -136,7 +165,7 @@ export function HeroSection() {
               {hero.primaryCta.label}
               <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
-            <Button href={hero.secondaryCta.href} variant="secondary" size="lg">
+            <Button href={hero.secondaryCta.href} variant="light" size="lg">
               <Heart className="size-4" fill="currentColor" />
               {hero.secondaryCta.label}
             </Button>
@@ -151,104 +180,67 @@ export function HeroSection() {
           >
             {impactStats.slice(0, 3).map((s) => (
               <div key={s.label} className="flex flex-col">
-                <span className="font-display text-2xl font-semibold text-cafe-900">
+                <span className="font-display text-2xl font-semibold text-crema">
                   {s.value.toLocaleString("es-MX")}
                   {s.suffix ?? ""}
                 </span>
-                <span className="text-xs uppercase tracking-wide text-tinta-muted">
+                <span className="text-xs uppercase tracking-wide text-crema/65">
                   {s.label}
                 </span>
               </div>
             ))}
           </motion.div>
+        </div>
+      </motion.div>
+
+      {/* Chips flotantes sobre el video */}
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 hidden w-1/2 lg:block">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1, duration: 0.6, ease: EASE }}
+          className="absolute right-10 top-36 flex items-center gap-3 rounded-2xl bg-crema/90 px-4 py-3 shadow-warm backdrop-blur"
+        >
+          <span className="inline-grid size-10 place-items-center rounded-xl bg-naranja/15 text-naranja">
+            <PawPrint className="size-5" />
+          </span>
+          <div className="leading-tight">
+            <p className="font-display text-xl font-semibold text-cafe-900">
+              +550
+            </p>
+            <p className="text-[0.7rem] uppercase tracking-wide text-tinta-muted">
+              rescates
+            </p>
+          </div>
         </motion.div>
 
-        {/* Columna visual */}
         <motion.div
-          style={{ y: imgY }}
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: 0.3, duration: 1, ease: EASE }}
-          className="relative mx-auto w-full max-w-md lg:max-w-none"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.15, duration: 0.6, ease: EASE }}
+          className="absolute bottom-16 right-8 flex items-center gap-3 rounded-2xl border border-crema/15 bg-cafe-900/90 px-4 py-3 text-crema shadow-lift backdrop-blur"
         >
-          <div className="relative aspect-[4/5] w-full animate-blob overflow-hidden rounded-[2.5rem] shadow-lift">
-            {reducedMotion ? (
-              <SmartImage
-                src="/images/site/cta.jpg"
-                alt="Perrito rescatado feliz con su nueva familia"
-                fill
-                priority
-                fallbackLabel="De la calle a casa"
-                className="object-cover object-[center_58%]"
-                sizes="(max-width: 1024px) 90vw, 45vw"
-              />
-            ) : (
-              <video
-                className="absolute inset-0 size-full object-cover object-[center_58%]"
-                autoPlay
-                muted
-                loop
-                playsInline
-                poster="/images/site/cta.jpg"
-                aria-hidden
-              >
-                <source src="/video/hero-loop.mp4" type="video/mp4" />
-              </video>
-            )}
-            <div className="absolute inset-0 bg-gradient-to-t from-cafe-900/60 via-cafe-900/10 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-tr from-naranja/20 via-transparent to-salvia-700/15 mix-blend-soft-light" />
-            <div className="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-cafe-900/10" />
+          <span className="inline-grid size-10 place-items-center rounded-xl bg-durazno/25 text-durazno">
+            <Heart className="size-5" fill="currentColor" />
+          </span>
+          <div className="leading-tight">
+            <p className="font-display text-xl font-semibold">350</p>
+            <p className="text-[0.7rem] uppercase tracking-wide text-crema/70">
+              adopciones
+            </p>
           </div>
-
-          {/* Chip flotante: rescates */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1, duration: 0.6, ease: EASE }}
-            className="absolute -left-3 top-8 flex items-center gap-3 rounded-2xl bg-crema/90 px-4 py-3 shadow-warm backdrop-blur sm:-left-6"
-          >
-            <span className="inline-grid size-10 place-items-center rounded-xl bg-naranja/15 text-naranja">
-              <PawPrint className="size-5" />
-            </span>
-            <div className="leading-tight">
-              <p className="font-display text-xl font-semibold text-cafe-900">
-                +550
-              </p>
-              <p className="text-[0.7rem] uppercase tracking-wide text-tinta-muted">
-                rescates
-              </p>
-            </div>
-          </motion.div>
-
-          {/* Chip flotante: adopciones */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.15, duration: 0.6, ease: EASE }}
-            className="absolute -right-2 bottom-12 flex items-center gap-3 rounded-2xl bg-cafe-900/95 px-4 py-3 text-crema shadow-lift sm:-right-5"
-          >
-            <span className="inline-grid size-10 place-items-center rounded-xl bg-durazno/25 text-durazno">
-              <Heart className="size-5" fill="currentColor" />
-            </span>
-            <div className="leading-tight">
-              <p className="font-display text-xl font-semibold">350</p>
-              <p className="text-[0.7rem] uppercase tracking-wide text-crema/70">
-                adopciones
-              </p>
-            </div>
-          </motion.div>
         </motion.div>
       </div>
 
       {/* Indicador de scroll */}
       <motion.div
         style={{ opacity: fade }}
-        className="absolute bottom-24 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-tinta-muted lg:flex"
+        className="absolute bottom-20 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2 text-crema/70 lg:flex"
       >
         <span className="text-[0.65rem] uppercase tracking-[0.25em]">Desliza</span>
-        <span className="flex h-9 w-5 items-start justify-center rounded-full border border-cafe/25 p-1">
+        <span className="flex h-9 w-5 items-start justify-center rounded-full border border-crema/30 p-1">
           <motion.span
-            className="size-1.5 rounded-full bg-naranja"
+            className="size-1.5 rounded-full bg-durazno"
             animate={{ y: [0, 12, 0] }}
             transition={{ duration: 1.6, repeat: Infinity, ease: "easeInOut" }}
           />
@@ -256,14 +248,18 @@ export function HeroSection() {
       </motion.div>
 
       {/* Marquee inferior */}
-      <div className="absolute inset-x-0 bottom-0 border-y border-linea/70 bg-crema/50 py-3 backdrop-blur">
+      <div className="absolute inset-x-0 bottom-0 z-10 border-t border-crema/10 bg-cafe-900/40 py-3 backdrop-blur">
         <div className="flex w-max animate-marquee items-center gap-6 whitespace-nowrap">
           {[...marqueeItems, ...marqueeItems].map((item, i) => (
             <span key={i} className="flex items-center gap-6">
-              <span className="font-display text-lg font-medium text-cafe/70">
+              <span className="font-display text-lg font-medium text-crema/75">
                 {item}
               </span>
-              <PawPrint className="size-4 text-naranja/60" fill="currentColor" strokeWidth={0} />
+              <PawPrint
+                className="size-4 text-durazno/70"
+                fill="currentColor"
+                strokeWidth={0}
+              />
             </span>
           ))}
         </div>

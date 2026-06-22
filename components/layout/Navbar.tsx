@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, Heart } from "lucide-react";
 import { Logo } from "@/components/ui/Logo";
@@ -27,6 +28,9 @@ export function Navbar() {
     };
   }, [open]);
 
+  const pathname = usePathname();
+  const onDarkHero = !scrolled && (pathname === "/" || pathname === "/campana");
+
   return (
     <>
       <header
@@ -38,14 +42,19 @@ export function Navbar() {
         )}
       >
         <nav className="container-x flex items-center justify-between gap-4">
-          <Logo />
+          <Logo tone={onDarkHero ? "light" : "dark"} />
 
           <ul className="hidden items-center gap-1 lg:flex">
             {navLinks.map((l) => (
               <li key={l.href}>
                 <Link
                   href={l.href}
-                  className="relative rounded-full px-3.5 py-2 text-sm font-medium text-tinta/80 transition-colors hover:text-cafe-900"
+                  className={cn(
+                    "relative rounded-full px-3.5 py-2 text-sm font-medium transition-colors",
+                    onDarkHero
+                      ? "text-crema/85 hover:text-crema"
+                      : "text-tinta/80 hover:text-cafe-900",
+                  )}
                 >
                   {l.label}
                 </Link>
@@ -54,7 +63,13 @@ export function Navbar() {
           </ul>
 
           <div className="hidden items-center gap-2 lg:flex">
-            <Button href={site.whatsappUrl} external variant="ghost" size="sm">
+            <Button
+              href={site.whatsappUrl}
+              external
+              variant="ghost"
+              size="sm"
+              className={onDarkHero ? "text-crema hover:bg-crema/10" : undefined}
+            >
               Adopta
             </Button>
             <Button href="/#dona" variant="primary" size="sm">
@@ -66,7 +81,12 @@ export function Navbar() {
           <button
             type="button"
             onClick={() => setOpen(true)}
-            className="inline-grid size-11 place-items-center rounded-2xl border border-linea bg-crema/70 text-cafe-900 lg:hidden"
+            className={cn(
+              "inline-grid size-11 place-items-center rounded-2xl border transition-colors lg:hidden",
+              onDarkHero
+                ? "border-crema/25 bg-crema/10 text-crema backdrop-blur"
+                : "border-linea bg-crema/70 text-cafe-900",
+            )}
             aria-label="Abrir menú"
           >
             <Menu className="size-5" />

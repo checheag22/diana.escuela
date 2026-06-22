@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ComponentPropsWithoutRef, ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-type Variant = "primary" | "secondary" | "ghost" | "dark" | "soft";
+type Variant = "primary" | "secondary" | "ghost" | "dark" | "soft" | "light";
 type Size = "sm" | "md" | "lg";
 
 const base =
@@ -16,6 +16,8 @@ const variants: Record<Variant, string> = {
   ghost: "bg-transparent text-cafe-900 hover:bg-cafe/8",
   dark: "bg-cafe-900 text-crema hover:bg-cafe-700 hover:-translate-y-0.5 shadow-soft",
   soft: "bg-salvia-100 text-salvia-700 hover:bg-salvia/25 hover:-translate-y-0.5",
+  light:
+    "bg-cafe-900/35 text-crema border border-crema/40 backdrop-blur-md hover:bg-cafe-900/55 hover:-translate-y-0.5",
 };
 
 const sizes: Record<Size, string> = {
