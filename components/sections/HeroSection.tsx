@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { motion, useScroll, useTransform, type Variants } from "framer-motion";
 import { PawPrint, ArrowRight, Heart, Sparkles } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -36,6 +36,15 @@ export function HeroSection() {
   const imgY = useTransform(scrollYProgress, [0, 1], [0, 120]);
   const textY = useTransform(scrollYProgress, [0, 1], [0, 60]);
   const fade = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
+
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => {
+    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+    setReducedMotion(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setReducedMotion(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
 
   return (
     <section
@@ -163,15 +172,29 @@ export function HeroSection() {
           className="relative mx-auto w-full max-w-md lg:max-w-none"
         >
           <div className="relative aspect-[4/5] w-full animate-blob overflow-hidden rounded-[2.5rem] shadow-lift">
-            <SmartImage
-              src="/images/site/cta.jpg"
-              alt="Perrito rescatado feliz con su nueva familia"
-              fill
-              priority
-              fallbackLabel="De la calle a casa"
-              className="object-cover object-[center_62%]"
-              sizes="(max-width: 1024px) 90vw, 45vw"
-            />
+            {reducedMotion ? (
+              <SmartImage
+                src="/images/site/cta.jpg"
+                alt="Perrito rescatado feliz con su nueva familia"
+                fill
+                priority
+                fallbackLabel="De la calle a casa"
+                className="object-cover object-[center_58%]"
+                sizes="(max-width: 1024px) 90vw, 45vw"
+              />
+            ) : (
+              <video
+                className="absolute inset-0 size-full object-cover object-[center_58%]"
+                autoPlay
+                muted
+                loop
+                playsInline
+                poster="/images/site/cta.jpg"
+                aria-hidden
+              >
+                <source src="/video/hero-loop.mp4" type="video/mp4" />
+              </video>
+            )}
             <div className="absolute inset-0 bg-gradient-to-t from-cafe-900/60 via-cafe-900/10 to-transparent" />
             <div className="absolute inset-0 bg-gradient-to-tr from-naranja/20 via-transparent to-salvia-700/15 mix-blend-soft-light" />
             <div className="absolute inset-0 rounded-[2.5rem] ring-1 ring-inset ring-cafe-900/10" />
