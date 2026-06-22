@@ -35,12 +35,12 @@ export const site = {
 
 export const navLinks = [
   { label: "Conócenos", href: "/#conocenos" },
-  { label: "Impacto", href: "/#impacto" },
   { label: "Adopta", href: "/adopta" },
+  { label: "Dona", href: "/#dona" },
   { label: "Transparencia", href: "/#transparencia" },
   { label: "Historias", href: "/#historias" },
+  { label: "Educación", href: "/educacion" },
   { label: "Voluntariado", href: "/#voluntariado" },
-  { label: "Campaña", href: "/campana" },
 ];
 
 /* — Frases del hero — */
@@ -242,6 +242,10 @@ export const myths: { myth: string; reality: string }[] = [
   {
     myth: "Si dono poquito, no sirve.",
     reality: "Todo suma. Un donativo pequeño se vuelve alimento, medicina o parte de una consulta.",
+  },
+  {
+    myth: "Los perros mestizos son inferiores.",
+    reality: "Los mestizos suelen ser sanos, cariñosos, inteligentes y muy leales.",
   },
 ];
 
@@ -457,4 +461,63 @@ export const faq = [
     q: "¿Dónde están ubicados?",
     a: "Estamos en León, Guanajuato. Coordinamos visitas y entregas por WhatsApp para recibirte de la mejor manera.",
   },
+];
+
+/* — Apadrinamiento "Padrino Goyito" (donación mensual recurrente) — */
+export const sponsorship = {
+  name: "Padrino Goyito",
+  intro:
+    "Conviértete en padrino o madrina y apoya cada mes a un perrito rescatado. Tu aportación recurrente nos da la estabilidad para alimento, medicinas y cuidados constantes.",
+  tiers: [
+    { amount: 100, label: "Amigo", desc: "Ayudas con alimento y cariño." },
+    { amount: 250, label: "Padrino", desc: "Cubres parte de sus medicinas y vacunas.", highlight: true },
+    { amount: 500, label: "Guardián", desc: "Apoyas su atención veterinaria continua." },
+    { amount: 1000, label: "Héroe", desc: "Sostienes su rescate y rehabilitación." },
+  ] as { amount: number; label: string; desc: string; highlight?: boolean }[],
+  benefits: [
+    "Certificado digital de padrino o madrina.",
+    "Foto del perrito que apadrinas.",
+    "Actualización mensual de su progreso.",
+    "Su historia de impacto.",
+  ],
+};
+
+/* — Contenido educativo — */
+export const compraVsAdopta = {
+  comprar: [
+    "Fomenta la compra impulsiva y los criaderos.",
+    "No reduce el abandono ni la sobrepoblación.",
+    "Suele implicar un costo más alto.",
+    "El perrito puede llegar sin esterilizar ni vacunas.",
+  ],
+  adoptar: [
+    "Le das una segunda oportunidad a un perro rescatado.",
+    "Ayudas a reducir el abandono y liberas espacio para otro rescate.",
+    "Apoyas directamente a un albergue local.",
+    "Llega esterilizado, vacunado y con microchip.",
+  ],
+};
+
+export const sterilization = {
+  title: "La esterilización lo cambia todo",
+  body: "Esterilizar es la forma más efectiva de frenar la sobrepoblación canina. Una sola perrita sin esterilizar puede dar origen a cientos de cachorros en pocos años. Por eso esterilizamos a cada perro antes de darlo en adopción.",
+  stat: "2,500+",
+  statLabel: "esterilizaciones, 300 de ellas en perritas gestantes",
+};
+
+export const tenencia = [
+  "Agua limpia y alimento de calidad siempre disponibles.",
+  "Esterilización para evitar camadas no deseadas.",
+  "Vacunas y desparasitación al día.",
+  "Un espacio seguro: nunca amarrado, encerrado ni en azoteas.",
+  "Paseos, juego y convivencia diaria.",
+  "Atención veterinaria preventiva y ante emergencias.",
+  "Identificación o microchip.",
+  "Compromiso de cuidarlo durante toda su vida.",
+];
+
+export const educationStats = [
+  { value: "200,000", label: "perros abandonados estimados en León" },
+  { value: "Millones", label: "de perros y gatos en situación de calle en México" },
+  { value: "Cientos de miles", label: "de animales abandonados cada año en el país" },
 ];

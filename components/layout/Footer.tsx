@@ -70,9 +70,10 @@ export function Footer() {
           <ul className="mt-4 space-y-2.5 text-sm">
             <li><Link href="/adopta" className="text-crema/70 transition-colors hover:text-durazno">Adoptar</Link></li>
             <li><a href={site.paypalUrl} target="_blank" rel="noopener noreferrer" className="text-crema/70 transition-colors hover:text-durazno">Donar con PayPal</a></li>
+            <li><Link href="/#apadrina" className="text-crema/70 transition-colors hover:text-durazno">Apadrina un perro</Link></li>
             <li><Link href="/#voluntariado" className="text-crema/70 transition-colors hover:text-durazno">Voluntariado</Link></li>
             <li><Link href="/#transparencia" className="text-crema/70 transition-colors hover:text-durazno">Transparencia</Link></li>
-            <li><Link href="/campana" className="text-crema/70 transition-colors hover:text-durazno">Campaña</Link></li>
+            <li><Link href="/educacion" className="text-crema/70 transition-colors hover:text-durazno">Educación</Link></li>
           </ul>
         </div>
 
